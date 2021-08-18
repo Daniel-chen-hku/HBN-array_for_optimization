@@ -2,10 +2,7 @@ import numpy as np
 import pyvisa
 import random
 import math
-import sys
-# 摄像机卡口
-# coaxial switch
-# sum
+
 
 def wave_generator_control(variable:np.ndarray):
     ip1 = 'USB0::0x1AB1::0x0641::DG4E230600090::INSTR'

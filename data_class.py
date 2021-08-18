@@ -15,7 +15,7 @@ class chaotic_annealing:
         self.trace = []
         self.variable = np.zeros([size,3],dtype = int)
         self.variable[:,1] = np.random.randn(size) # [x,y,z]
-        self.variable[:,0] = 1 / (1 + math.exp(-self.variable[:,1] / self.epsilon)) # x
+        self.variable[:,0] = 1 / (1 + np.exp(-self.variable[:,1] / self.epsilon)) # x
         self.variable[:,2] = np.ones(size) # z
         self.trace.append(self.variable)
 
@@ -26,12 +26,13 @@ class chaotic_annealing:
         self.device_init()
         self.round = 0
         # use x to judge whether it converged or not
-        while(max(1 / (1 + math.exp(-self.variable[:,1] / self.epsilon)) - self.variable[:,0]) < 0.001 or self.round > 5000):
+        while(max(1 / (1 + np.exp(-self.variable[:,1] / self.epsilon)) - self.variable[:,0]) < 0.001 or self.round > 5000):
             self.round += 1
             wave_generator_control(self.variable)
             output = get_smu_result(self.b1500)
+            # output = 0
             self.variable[:,1] = self.k*self.variable[:,1] + self.alpha*output - self.variable[:,2]*(self.variable[:,0] - self.I0)
-            self.variable[:,0] = 1 / (1 + math.exp(-self.variable[:,1] / self.epsilon))
+            self.variable[:,0] = 1 / (1 + np.exp(-self.variable[:,1] / self.epsilon))
             self.variable[:,2] = (1 - self.beta) * self.variable[:,2]
             self.trace.append(self.variable)
 

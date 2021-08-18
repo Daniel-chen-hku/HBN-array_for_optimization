@@ -39,7 +39,7 @@ def smu_initialization():
     station.add_component(b1500)
     b1500.self_calibration()
     b1500.smu2.enable_outputs() # fuse smu2 and smu3
-    b1500.smu3.enable_outputs()
+    # b1500.smu3.enable_outputs()
     return b1500
 
 def get_smu_result(b1500):
@@ -52,17 +52,15 @@ def get_smu_result(b1500):
     b1500.autozero_enabled(False)
     b1500.smu2.measurement_mode(constants.MM.Mode.SAMPLING)
     b1500.smu2.source_config(output_range=constants.VOutputRange.AUTO,
-                        compliance=1e-7,
+                        compliance=1e-2,
                         compl_polarity=None,
                         min_compliance_range=constants.IOutputRange.AUTO
                         )
 
     # Set the high-speed ADC to NPLC mode
-    # b1500.use_nplc_for_high_speed_adc(n=1)
     b1500.use_nplc_for_high_resolution_adc(n=5)
-
-    # b1500.smu1.enable_outputs()
-    b1500.smu2.voltage(1e-6)
+    # force the voltage
+    b1500.smu2.voltage(0)
 
     b1500.smu2.sampling_measurement_trace.label = 'Current'
     b1500.smu2.sampling_measurement_trace.unit = 'A'
@@ -80,6 +78,3 @@ def get_smu_result(b1500):
         datasaver.add_result((b1500.smu2.sampling_measurement_trace, b1500.smu2.sampling_measurement_trace.get()))
 
     plot_dataset(datasaver.dataset)
-
-# if '__name__' == '__main__':
-#     get_smu_result()

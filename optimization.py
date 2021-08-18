@@ -1,4 +1,5 @@
 from data_class import *
+import sys
 
 mode = 'hardware' if len(sys.argv) <= 1 else str(sys.argv[1])
 
@@ -16,8 +17,9 @@ def software_simulation():
     return 1
 
 def main():
+    # print(mode,'1\n')
     hardware_experiment()
     software_simulation()
 
-if '__name__' == '__main__':
+if __name__ == '__main__':
     main()
