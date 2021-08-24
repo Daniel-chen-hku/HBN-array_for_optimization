@@ -3,7 +3,6 @@ import pyvisa
 import random
 import math
 
-
 def wave_generator_control(variable:np.ndarray):
     ip1 = 'USB0::0x1AB1::0x0641::DG4E230600090::INSTR'
     ip2 = 'USB0::0x1AB1::0x0641::DG4E232300760::INSTR'

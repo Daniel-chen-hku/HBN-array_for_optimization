@@ -1,4 +1,3 @@
-from matplotlib import pyplot as plt
 import qcodes as qc
 
 from qcodes.instrument_drivers.Keysight.keysightb1500 import KeysightB1500, \
